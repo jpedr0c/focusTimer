@@ -1,10 +1,6 @@
 const btnMode = document.getElementById('mode');
 const counter = document.querySelectorAll('span');
 const cardSounds = document.querySelectorAll('.card');
-// const btnForest = document.getElementById('forest');
-// const btnRain = document.getElementById('rain');
-// const btnCoffeeShop = document.getElementById('coffeeShop');
-// const btnFireplace   = document.getElementById('fireplace');
 const btnPlay = document.getElementById('play');
 const btnPause = document.getElementById('pause');
 const btnStop = document.getElementById('stop');
@@ -19,8 +15,8 @@ let isDarkMode = false;
 
 function toggleMode() {
     const imageFolder = isDarkMode ? 'darkMode' : 'lightMode';
-
     const imageElements = document.querySelectorAll('img');
+    
     imageElements.forEach((img) => {
         const imgName = img.src.split('/').slice(-1);
         if (imgName == "sun.svg") {
@@ -34,23 +30,17 @@ function toggleMode() {
         img.src = `./assets/${imageFolder}/${imgName}`;
     });
 
-    if (isDarkMode) {
-        document.body.style.backgroundColor = 'black';
-        counter.forEach((span) => {
-            span.style.color = '#FFFFFF';
-        });
-        cardSounds.forEach((card) => {
-            card.style.backgroundColor = '#29292E';
-        });
-    } else {
-        document.body.style.backgroundColor = 'white';
-        counter.forEach((span) => {
-            span.style.color = '#323238';
-        });
-        cardSounds.forEach((card) => {
-            card.style.backgroundColor = '#E1E1E6';
-        });
-    }
+    const bodyBackgroundColor = isDarkMode ? 'black' : 'white';
+    const counterColor = isDarkMode ? '#FFFFFF' : '#323238';
+    const cardBackgroundColor = isDarkMode ? '#29292E' : '#E1E1E6';
+
+    document.body.style.backgroundColor = bodyBackgroundColor;
+    counter.forEach((span) => {
+        span.style.color = counterColor;
+    });
+    cardSounds.forEach((card) => {
+        card.style.backgroundColor = cardBackgroundColor;
+    });
 }
 
 btnMode.addEventListener('click', () => {
