@@ -12,6 +12,11 @@
   display: none;
 }
 
+.card.activated {
+  background-color: #069ecc !important;
+  transition: background-color 0.4s linear;
+}
+
 body {
   display: flex;
   place-content: center;
@@ -79,10 +84,6 @@ body {
 
 .cardsSounds .card img{
   max-width: 3.8rem;
-}
-
-.card.activated {
-  background-color: #02799D;
 }
 
 @media (width <= 830px) {
