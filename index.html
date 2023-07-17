@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Focus Timer</title>
+</head>
+<body>
+  <img id="mode" src="./assets/lightMode/sun.svg" alt="Ícone para alterar o tema da aplicação entre claro e escuro">
+  <div class="container">
+    <section class="timer">
+      <div class="counter">
+        <span>25</span>
+        <span>:</span>
+        <span>00</span>
+      </div>
+      <div class="controlsTimer">
+        <img id="play" src="./assets/lightMode/play.svg" alt="Ícone para representar o ínicio do timer">
+        <img id="pause" class="hidden" src="./assets/lightMode/pause.svg" alt="Ícone para representar o pausar do timer">
+        <img id="stop" src="./assets/lightMode/stop.svg" alt="Ícone para representar o termino forçado do timer">
+        <img id="plus" src="./assets/lightMode/plus.svg" alt="Ícone para representar o acréscimo do timer">
+        <img id="minus" src="./assets/lightMode/minus.svg" alt="Ícone para representar o decréscimo do timer">
+      </div>
+    </section>
+    <section class="cardsSounds">
+      <div id="forest" class="card">
+        <img src="./assets/lightMode/forest.svg" alt="Ícone para representar uma árvore">
+      </div>
+      <div id="rain" class="card">
+        <img src="./assets/lightMode/rain.svg" alt="Ícone para representar um nuvem com chuva">
+      </div>
+      <div id="coffeeShop" class="card">
+        <img src="./assets/lightMode/coffeeShop.svg" alt="Ícone para representar uma cafeteria">
+      </div>
+      <div id="fireplace" class="card">
+        <img src="./assets/lightMode/fireplace.svg" alt="Ícone para representar uma lareira">
+      </div>
+    </section>
+  </div>
+  <script src="./main.js"></script>
+</body>
+</html>
