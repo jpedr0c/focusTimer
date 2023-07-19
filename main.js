@@ -12,6 +12,32 @@ let secondsElement = document.getElementById('seconds');
 let seconds = Number(secondsElement.textContent);
 const audioElements = [];
 let isDarkMode = false;
+let countdownInterval;
+
+function updateTimerDisplay() {
+    minutesElement.textContent = minutes.toString().padStart(2, '0');
+    secondsElement.textContent = seconds.toString().padStart(2, '0');
+  }
+
+function startCountdown() {
+    btnPlay.classList.add('hidden');
+    btnPause.classList.remove('hidden');
+  
+    countdownInterval = setInterval(() => {
+      if (seconds > 0) {
+        seconds--;
+      } else {
+        if (minutes > 0) {
+          minutes--;
+          seconds = 5;
+        } else {
+          stopAndResetTimer();
+        }
+      }
+  
+      updateTimerDisplay();
+    }, 1000);
+  }
 
 function toggleMode() {
     const imageFolder = isDarkMode ? 'darkMode' : 'lightMode';
@@ -77,33 +103,45 @@ function togglePlayPauseButtons() {
 
 btnPlay.addEventListener('click', () => {
     togglePlayPauseButtons();
+    startCountdown();
 });
 
 btnPause.addEventListener('click', () => {
+    clearInterval(countdownInterval);
     togglePlayPauseButtons();
 });
 
-btnStop.addEventListener('click', () => {
+function stopAndResetTimer() {
+    clearInterval(countdownInterval);
+    seconds = 0;
+    minutes = 10;
+    updateTimerDisplay();
     btnPause.classList.add('hidden');
     btnPlay.classList.remove('hidden');
-});
+}
 
-btnPlus.addEventListener('click', () => {
-    if (minutes <= 90) {
-        if (minutes < 5)
-            minutes += 1;
-        else
-            minutes += 5;
-        minutesElement.textContent = minutes.toString().padStart(2, '0');
-    }
-});
+btnStop.addEventListener('click', stopAndResetTimer);
 
-btnMinus.addEventListener('click', () => {
-    if (minutes > 1) {
-        if (minutes <= 5)
-            minutes -= 1;
-        else
-            minutes -= 5;
-        minutesElement.textContent = minutes.toString().padStart(2, '0');
-    }
-});
+function incrementMinutes(){
+  if (minutes <= 98) {
+    if (minutes < 5 || minutes >= 95)
+      minutes += 1;
+    else
+      minutes += 5;
+  }
+  updateTimerDisplay();
+}
+
+btnPlus.addEventListener('click', incrementMinutes);
+
+function decreaseMinutes(){
+  if (minutes > 1) {
+    if (minutes <= 5 || minutes >= 96)
+      minutes -= 1;
+    else
+      minutes -= 5;
+  }
+  updateTimerDisplay();
+}
+
+btnMinus.addEventListener('click', decreaseMinutes);
