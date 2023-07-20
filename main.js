@@ -51,7 +51,7 @@ function startCountdown() {
     } else {
       if (minutes > 0) {
         minutes--;
-        seconds = 5;
+        seconds = 59;
       } else
         stopAndResetTimer();
     }
@@ -69,30 +69,6 @@ function stopAndResetTimer() {
   btnPlay.classList.remove('hidden');
   btnStop.classList.add('hidden');
   btnSetTime.classList.remove('hidden');
-}
-
-function incrementMinutes(){
-  if (minutes <= 98) {
-    if (minutes < 5 || minutes >= 95)
-      minutes += 1;
-    else
-      minutes += 5;
-  }
-  if (!isCountdownActive)
-    setUserMinutes = minutes;
-  updateTimerDisplay();
-}
-
-function decreaseMinutes(){
-  if (minutes > 1) {
-    if (minutes <= 5 || minutes >= 96)
-      minutes -= 1;
-    else
-      minutes -= 5;
-  }
-  if (!isCountdownActive)
-    setUserMinutes = minutes;
-  updateTimerDisplay();
 }
 
 function updateTimerDisplay() {
@@ -144,6 +120,11 @@ btnPlay.addEventListener('click', () => {
 btnPause.addEventListener('click', () => {
   clearInterval(countdownInterval);
   togglePlayPauseButtons();
+});
+
+btnSetTime.addEventListener('click', () => {
+  // TODO: Fazer a funcionalidade do setTime
+  console.log("Botão setTime funcionando");
 });
 
 btnStop.addEventListener('click', stopAndResetTimer);
