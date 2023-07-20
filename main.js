@@ -14,113 +14,58 @@ const audioElements = [];
 let isDarkMode = false;
 let countdownInterval;
 
-function updateTimerDisplay() {
-    minutesElement.textContent = minutes.toString().padStart(2, '0');
-    secondsElement.textContent = seconds.toString().padStart(2, '0');
-  }
+function toggleMode() {
+  const imageFolder = isDarkMode ? 'darkMode' : 'lightMode';
+  const imageElements = document.querySelectorAll('img');
+  
+  imageElements.forEach((img) => {
+      const imgName = img.src.split('/').slice(-1);
+      if (imgName == "sun.svg") {
+          img.src = `./assets/darkMode/moon.svg`;
+          return;
+      }
+      if (imgName == "moon.svg") {
+          img.src = `./assets/lightMode/sun.svg`;
+          return;
+      }
+      img.src = `./assets/${imageFolder}/${imgName}`;
+  });
+
+  const bodyBackgroundColor = isDarkMode ? 'black' : 'white';
+  const counterColor = isDarkMode ? '#FFFFFF' : '#323238';
+  const cardBackgroundColor = isDarkMode ? '#29292E' : '#E1E1E6';
+
+  document.body.style.backgroundColor = bodyBackgroundColor;
+  counter.forEach((span) => span.style.color = counterColor);
+  cardSounds.forEach((card) => card.style.backgroundColor = cardBackgroundColor);
+}
 
 function startCountdown() {
-    btnPlay.classList.add('hidden');
-    btnPause.classList.remove('hidden');
-  
-    countdownInterval = setInterval(() => {
-      if (seconds > 0) {
-        seconds--;
-      } else {
-        if (minutes > 0) {
-          minutes--;
-          seconds = 5;
-        } else {
-          stopAndResetTimer();
-        }
-      }
-  
-      updateTimerDisplay();
-    }, 1000);
-  }
+  btnPlay.classList.add('hidden');
+  btnPause.classList.remove('hidden');
 
-function toggleMode() {
-    const imageFolder = isDarkMode ? 'darkMode' : 'lightMode';
-    const imageElements = document.querySelectorAll('img');
-    
-    imageElements.forEach((img) => {
-        const imgName = img.src.split('/').slice(-1);
-        if (imgName == "sun.svg") {
-            img.src = `./assets/darkMode/moon.svg`;
-            return;
-        }
-        if (imgName == "moon.svg") {
-            img.src = `./assets/lightMode/sun.svg`;
-            return;
-        }
-        img.src = `./assets/${imageFolder}/${imgName}`;
-    });
-
-    const bodyBackgroundColor = isDarkMode ? 'black' : 'white';
-    const counterColor = isDarkMode ? '#FFFFFF' : '#323238';
-    const cardBackgroundColor = isDarkMode ? '#29292E' : '#E1E1E6';
-
-    document.body.style.backgroundColor = bodyBackgroundColor;
-    counter.forEach((span) => {
-        span.style.color = counterColor;
-    });
-    cardSounds.forEach((card) => {
-        card.style.backgroundColor = cardBackgroundColor;
-    });
+  countdownInterval = setInterval(() => {
+    if (seconds > 0) {
+      seconds--;
+    } else {
+      if (minutes > 0) {
+        minutes--;
+        seconds = 5;
+      } else
+        stopAndResetTimer();
+    }
+    updateTimerDisplay();
+  }, 1000);
 }
-
-btnMode.addEventListener('click', () => {
-    isDarkMode = !isDarkMode;
-    toggleMode();
-});
-
-cardSounds.forEach(card => {
-    const audio = new Audio();
-    audio.src = `./sounds/${card.id}.wav`;
-    audio.loop = true;
-    audioElements.push(audio);
-    card.addEventListener('click', () => {
-        const isSelected = card.classList.contains('activated');
-        cardSounds.forEach(card => {
-            card.classList.remove('activated');
-        });
-
-        audioElements.forEach(audio => {
-            audio.pause();
-        });
-
-        if (!isSelected) {
-            card.classList.add('activated');
-            audio.play();
-        }
-    });
-});
-
-function togglePlayPauseButtons() {
-    btnPause.classList.toggle('hidden');
-    btnPlay.classList.toggle('hidden');
-}
-
-btnPlay.addEventListener('click', () => {
-    togglePlayPauseButtons();
-    startCountdown();
-});
-
-btnPause.addEventListener('click', () => {
-    clearInterval(countdownInterval);
-    togglePlayPauseButtons();
-});
 
 function stopAndResetTimer() {
-    clearInterval(countdownInterval);
-    seconds = 0;
-    minutes = 10;
-    updateTimerDisplay();
-    btnPause.classList.add('hidden');
-    btnPlay.classList.remove('hidden');
+  clearInterval(countdownInterval);
+  seconds = 0;
+  minutes = 10;
+  updateTimerDisplay();
+  btnPause.classList.add('hidden');
+  btnPlay.classList.remove('hidden');
 }
-
-btnStop.addEventListener('click', stopAndResetTimer);
 
 function incrementMinutes(){
   if (minutes <= 98) {
@@ -132,8 +77,6 @@ function incrementMinutes(){
   updateTimerDisplay();
 }
 
-btnPlus.addEventListener('click', incrementMinutes);
-
 function decreaseMinutes(){
   if (minutes > 1) {
     if (minutes <= 5 || minutes >= 96)
@@ -143,5 +86,57 @@ function decreaseMinutes(){
   }
   updateTimerDisplay();
 }
+
+function updateTimerDisplay() {
+  minutesElement.textContent = minutes.toString().padStart(2, '0');
+  secondsElement.textContent = seconds.toString().padStart(2, '0');
+}
+
+function createAudioElement(card) {
+  const audio = new Audio();
+  audio.src = `./sounds/${card.id}.wav`;
+  audio.loop = true;
+  audioElements.push(audio);
+
+  card.addEventListener('click', () => toggleCardSelected(card, audio));
+}
+
+function toggleCardSelected(card, audio) {
+  const isSelected = card.classList.contains('activated');
+  cardSounds.forEach(card => card.classList.remove('activated'));
+
+  audioElements.forEach(audio => audio.pause());
+
+  if (!isSelected) {
+    card.classList.add('activated');
+    audio.play();
+  }
+}
+
+cardSounds.forEach(card => createAudioElement(card));
+
+function togglePlayPauseButtons() {
+    btnPause.classList.toggle('hidden');
+    btnPlay.classList.toggle('hidden');
+}
+
+btnPlay.addEventListener('click', () => {
+  togglePlayPauseButtons();
+  startCountdown();
+});
+
+btnPause.addEventListener('click', () => {
+  clearInterval(countdownInterval);
+  togglePlayPauseButtons();
+});
+
+btnMode.addEventListener('click', () => {
+  isDarkMode = !isDarkMode;
+  toggleMode();
+});
+
+btnStop.addEventListener('click', stopAndResetTimer);
+
+btnPlus.addEventListener('click', incrementMinutes);
 
 btnMinus.addEventListener('click', decreaseMinutes);
