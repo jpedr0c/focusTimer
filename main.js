@@ -61,6 +61,8 @@ function startCountdown() {
 function stopAndResetTimer() {
   clearInterval(countdownInterval);
   seconds = 0;
+  // TODO: Fazer a atualização do tempo de acordo com o que o usuário vai aumentando antes de dar play no contador
+  //       para que quando ele der stop volte para valor setado por ele anteriormente e não para um valor padrão
   minutes = 10;
   updateTimerDisplay();
   btnPause.classList.add('hidden');
