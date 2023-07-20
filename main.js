@@ -4,14 +4,15 @@ const cardSounds = document.querySelectorAll('.card');
 const btnPlay = document.getElementById('play');
 const btnPause = document.getElementById('pause');
 const btnStop = document.getElementById('stop');
-const btnPlus = document.getElementById('plus');
-const btnMinus = document.getElementById('minus');
-let minutesElement = document.getElementById('minutes');
+const btnSetTime = document.getElementById('setTime');
+const minutesElement = document.getElementById('minutes');
+const secondsElement = document.getElementById('seconds');
 let minutes = Number(minutesElement.textContent);
-let secondsElement = document.getElementById('seconds');
 let seconds = Number(secondsElement.textContent);
 const audioElements = [];
+let setUserMinutes = minutes;
 let isDarkMode = false;
+let isCountdownActive = false;
 let countdownInterval;
 
 function toggleMode() {
@@ -60,13 +61,14 @@ function startCountdown() {
 
 function stopAndResetTimer() {
   clearInterval(countdownInterval);
+  isCountdownActive = false;
   seconds = 0;
-  // TODO: Fazer a atualização do tempo de acordo com o que o usuário vai aumentando antes de dar play no contador
-  //       para que quando ele der stop volte para valor setado por ele anteriormente e não para um valor padrão
-  minutes = 10;
+  minutes = setUserMinutes;
   updateTimerDisplay();
   btnPause.classList.add('hidden');
   btnPlay.classList.remove('hidden');
+  btnStop.classList.add('hidden');
+  btnSetTime.classList.remove('hidden');
 }
 
 function incrementMinutes(){
@@ -76,6 +78,8 @@ function incrementMinutes(){
     else
       minutes += 5;
   }
+  if (!isCountdownActive)
+    setUserMinutes = minutes;
   updateTimerDisplay();
 }
 
@@ -86,6 +90,8 @@ function decreaseMinutes(){
     else
       minutes -= 5;
   }
+  if (!isCountdownActive)
+    setUserMinutes = minutes;
   updateTimerDisplay();
 }
 
@@ -118,11 +124,19 @@ function toggleCardSelected(card, audio) {
 cardSounds.forEach(card => createAudioElement(card));
 
 function togglePlayPauseButtons() {
-    btnPause.classList.toggle('hidden');
-    btnPlay.classList.toggle('hidden');
+  btnPause.classList.toggle('hidden');
+  btnPlay.classList.toggle('hidden');
+  btnStop.classList.remove('hidden');
+  btnSetTime.classList.add('hidden');
 }
 
+btnMode.addEventListener('click', () => {
+  isDarkMode = !isDarkMode;
+  toggleMode();
+});
+
 btnPlay.addEventListener('click', () => {
+  isCountdownActive = true;
   togglePlayPauseButtons();
   startCountdown();
 });
@@ -132,13 +146,4 @@ btnPause.addEventListener('click', () => {
   togglePlayPauseButtons();
 });
 
-btnMode.addEventListener('click', () => {
-  isDarkMode = !isDarkMode;
-  toggleMode();
-});
-
 btnStop.addEventListener('click', stopAndResetTimer);
-
-btnPlus.addEventListener('click', incrementMinutes);
-
-btnMinus.addEventListener('click', decreaseMinutes);
