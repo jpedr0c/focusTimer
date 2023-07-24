@@ -9,11 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-svg">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <title>Focus Timer</title>
 </head>
 <body>
-  <img id="mode" src="./assets/lightMode/sun.svg" alt="Ícone para alterar o tema da aplicação entre claro e escuro">
-  <div class="container">
+  <div id="app">
+    <button id="toggle-mode">
+      <span class="sr-only">Ativar/Desativar Light Mode</span>
+      <i class="ph-bold ph-sun"></i>
+      <i class="ph-bold ph-moon"></i>
+    </button>
     <section class="timer">
       <div class="counter">
         <span id="minutes">25</span>
@@ -21,24 +26,36 @@
         <span id="seconds">00</span>
       </div>
       <div class="controlsTimer">
-        <img id="play" src="./assets/lightMode/play.svg" alt="Ícone para representar o ínicio do timer">
-        <img id="pause" class="hidden" src="./assets/lightMode/pause.svg" alt="Ícone para representar o pausar do timer">
-        <img id="stop" class="hidden" src="./assets/lightMode/stop.svg" alt="Ícone para representar o termino forçado do timer">
-        <img id="setTime" src="./assets/lightMode/setTime.svg" alt="Ícone para representar o acréscimo do timer">
+        <button class="ph ph-play-circle">
+          <span class="sr-only">Iniciar contador</span>
+        </button>
+        <button class="ph ph-pause-circle">
+          <span class="sr-only">Pausar contador</span>
+        </button>
+        <button class="ph ph-timer">
+          <span class="sr-only">Definir o tempo do contador</span>
+        </button>
+        <button class="ph ph-stop-circle">
+          <span class="sr-only">Reiniciar o contador</span>
+        </button>
       </div>
     </section>
     <section class="cardsSounds">
       <div id="forest" class="card">
-        <img src="./assets/lightMode/forest.svg" alt="Ícone para representar uma árvore">
+        <span class="sr-only">Ativar/Desativar música com som de floresta</span>
+        <i class="ph ph-tree"></i>
       </div>
       <div id="rain" class="card">
-        <img src="./assets/lightMode/rain.svg" alt="Ícone para representar um nuvem com chuva">
+        <span class="sr-only">Ativar/Desativar música com som de chuva</span>
+        <i class="ph ph-cloud-rain"></i>
       </div>
       <div id="coffeeShop" class="card">
-        <img src="./assets/lightMode/coffeeShop.svg" alt="Ícone para representar uma cafeteria">
+        <span class="sr-only">Ativar/Desativar música com som de cafeteria</span>
+        <i class="ph ph-coffee"></i>
       </div>
       <div id="fireplace" class="card">
-        <img src="./assets/lightMode/fireplace.svg" alt="Ícone para representar uma lareira">
+        <span class="sr-only">Ativar/Desativar música com som de fogueira</span>
+        <i class="ph ph-campfire"></i>
       </div>
     </section>
   </div>
