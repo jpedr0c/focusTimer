@@ -100,7 +100,7 @@ button{
   font-weight: 500;
 }
 
-.timer .controlsTimer {
+.timer #controlsTimer {
   display: flex;
   place-content: center;
   place-items: center;
@@ -139,7 +139,7 @@ button{
     gap: 5rem;
   }
 
-  .timer .controlsTimer {
+  .timer #controlsTimer {
     gap: 2.5rem;
   }
 }

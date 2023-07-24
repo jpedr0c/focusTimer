@@ -10,12 +10,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-svg">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script type="module" src="src/main.js" defer></script>
   <title>Focus Timer</title>
 </head>
 <body>
   <div id="app">
     <button id="toggle-mode">
-      <span class="sr-only">Ativar/Desativar Light Mode</span>
+      <span class="sr-only">Ativar Dark Mode</span>
       <i class="ph-bold ph-sun"></i>
       <i class="ph-bold ph-moon"></i>
     </button>
@@ -25,17 +26,17 @@
         <span>:</span>
         <span id="seconds">00</span>
       </div>
-      <div class="controlsTimer">
-        <button class="ph ph-play-circle">
+      <div id="controlsTimer">
+        <button id="play" data-action="toggleRunning" class="ph ph-play-circle">
           <span class="sr-only">Iniciar contador</span>
         </button>
-        <button class="ph ph-pause-circle">
+        <button id="pause" data-action="toggleRunning" class="ph ph-pause-circle">
           <span class="sr-only">Pausar contador</span>
         </button>
-        <button class="ph ph-timer">
+        <button id="setTimer" data-action="setTimer" class="ph ph-timer">
           <span class="sr-only">Definir o tempo do contador</span>
         </button>
-        <button class="ph ph-stop-circle">
+        <button id="stop" data-action="reset" class="ph ph-stop-circle">
           <span class="sr-only">Reiniciar o contador</span>
         </button>
       </div>
@@ -59,6 +60,5 @@
       </div>
     </section>
   </div>
-  <script src="./main.js"></script>
 </body>
 </html>
