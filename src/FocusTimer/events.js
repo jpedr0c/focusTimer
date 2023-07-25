@@ -37,6 +37,20 @@ export function registerCardsSound() {
   });
 }
 
+function updateMinutesValue(event) {
+  let minutes = event.currentTarget.textContent;
+  minutes = minutes > 99 ? 99 : minutes;
+
+  if (!minutes)
+    minutes = state.minutes;
+
+  state.minutes = minutes;
+  state.seconds = 0;
+
+  updateTimerDisplay();
+  element.minutes.removeAttribute('contenteditable');
+}
+
 export function setMinutes() {
   element.minutes.addEventListener('focus', () => {
     element.minutes.textContent = "";
@@ -44,17 +58,12 @@ export function setMinutes() {
 
   element.minutes.onkeypress = (event) => /\d/.test(event.key);
 
-  element.minutes.addEventListener('blur', (event) => {
-    let minutes = event.currentTarget.textContent;
-    minutes = minutes > 99 ? 99 : minutes;
+  element.minutes.addEventListener('blur', (event) => updateMinutesValue(event));
 
-    if (!minutes)
-      minutes = state.minutes;
-
-    state.minutes = minutes;
-    state.seconds = 0;
-
-    updateTimerDisplay();
-    element.minutes.removeAttribute('contenteditable');
+  element.minutes.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      updateMinutesValue(event);
+    }
   });
 }
