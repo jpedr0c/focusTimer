@@ -27,8 +27,8 @@ html:not(.dark) .ph-sun{
   display: none;
 }
 
-.running .ph-play-circle,
-.running .ph-timer,
+html.running .ph-play-circle,
+html.running .ph-timer,
 html:not(.running) .ph-pause-circle,
 html:not(.running) .ph-stop-circle {
   display: none;
@@ -107,23 +107,23 @@ button{
   gap: 4rem;
 }
 
-.cardsSounds {
+#cardsSounds {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
-.cardsSounds .card{
+#cardsSounds .card{
   cursor: pointer;
   display: flex;
   justify-content: center;
   background-color: var(--bg-color-cards);
   color: var(--img-color-cards);
-  padding: 3.8rem 3.5rem;
+  padding: 3.8rem 5.6rem;
   border-radius: 2.4rem;
 }
 
-.cardsSounds .card > i{
+#cardsSounds .card > i{
   font-size: 5.2rem;
 }
 
