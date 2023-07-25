@@ -3,15 +3,19 @@ import { reset } from './actions.js';
 import * as element from './elements.js';
 import * as sounds from './sounds.js';
 
-export function countdown() {  
-  if (!state.isRunning) return;
+export function countdown() {
+  let countdownTimeoutId;
+
+  if (!state.isRunning || state.isCounting) return;
+  
+  state.isCounting = true;
 
   let minutes = Number(element.minutes.textContent);
   let seconds = Number(element.seconds.textContent);
 
   seconds--;
 
-  if (seconds < 0){
+  if (seconds < 0) {
     minutes--;
     seconds = 59;
   }
@@ -19,10 +23,19 @@ export function countdown() {
   if (minutes < 0) {
     reset();
     sounds.kitchenTimer.play();
+    state.isCounting = false;
     return;
   }
+
   updateTimerDisplay(minutes, seconds);
-  setTimeout(() => countdown(), 1000);
+
+  if (countdownTimeoutId)
+    clearTimeout(countdownTimeoutId);
+
+  countdownTimeoutId = setTimeout(() => {
+    state.isCounting = false;
+    countdown();
+  }, 1000);
 }
 
 export function updateTimerDisplay(minutes, seconds) {
