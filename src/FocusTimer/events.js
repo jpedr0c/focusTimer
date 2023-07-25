@@ -19,7 +19,6 @@ export function registerControls() {
 export function registerCardsSound() {
   cardsSounds.addEventListener('click', (event) => {
     const cardButton = event.target.closest('.card');
-    console.log(cardButton);
 
     if (cardButton) {
       const card = cardButton.dataset.card;
@@ -49,10 +48,13 @@ export function setMinutes() {
     let minutes = event.currentTarget.textContent;
     minutes = minutes > 99 ? 99 : minutes;
 
+    if (!minutes)
+      minutes = state.minutes;
+
     state.minutes = minutes;
     state.seconds = 0;
 
     updateTimerDisplay();
     element.minutes.removeAttribute('contenteditable');
-  })
+  });
 }
