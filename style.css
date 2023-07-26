@@ -63,18 +63,21 @@ body {
   transition: background-color 0.3s ease-in-out;
 }
 
-#toggle-mode {
-  cursor: pointer;
-  position: absolute;
-  top: 4rem;
-  right: 6rem;
-}
-
 #app {
+  max-width: 136.8rem;
   display: flex;
+  position: relative;
   place-content: center;
   place-items: center;
   gap: 8rem;
+  padding: 15rem;
+}
+
+#toggle-mode {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 button{
@@ -125,6 +128,18 @@ button{
 
 #cardsSounds .card > i{
   font-size: 5.2rem;
+}
+
+@media (width <= 1600px) {
+  #app {
+    position: inherit;
+    padding: 0;
+  }
+  
+  #toggle-mode {
+    top: 4rem;
+    right: 6rem;
+  }
 }
 
 @media (width <= 830px) {
